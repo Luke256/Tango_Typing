@@ -3,6 +3,7 @@
 #include "Typing.h"
 #include "TypingResult.h"
 #include "Select.h"
+#include "SelectResult.h"
 
 void Main()
 {
@@ -16,6 +17,7 @@ void Main()
     manager.add<Typing>(U"Typing");
     manager.add<TypingResult>(U"TypingResult");
     manager.add<Select>(U"Select");
+    manager.add<SelectResult>(U"SelectResult");
 
     FontAsset::Register(U"ItemName", 40, Typeface::Light);
     FontAsset::Register(U"Heading", 50, Typeface::Light);
@@ -28,7 +30,7 @@ void Main()
 
 
     while (System::Update())
-    {;
+    {
         if(!manager.update()) break;
     }
 }

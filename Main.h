@@ -4,15 +4,15 @@
 struct Problem{
     String m_question;
     String m_answer;
-    String m_jaex;
-    String m_enex;
+    String m_problemex;
+    String m_answerex;
     int32 Result;
     Problem(String problem, String answer) : m_question(problem),m_answer(answer),Result(2){}
-    Problem(String problem, String answer, String jaex, String enex):
+    Problem(String problem, String answer, String problemex, String answerex):
     m_question(problem),
     m_answer(answer),
-    m_jaex(jaex),
-    m_enex(enex){}
+    m_problemex(problemex),
+    m_answerex(answerex){}
     Problem(){}
 };
 
