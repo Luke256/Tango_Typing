@@ -12,13 +12,6 @@ TypingResult::TypingResult(const InitData& init) : IScene(init){
 
 /*update---------------------------------------------------------------------*/
 void TypingResult::update() {
-    ClearPrint();
-    Print << Cursor::Pos();
-    Print << U"Typed Count:" << getData().CorrectTypeCount;
-    Print << U"All Type:" << getData().AllTypeCount;
-    Print << U"TpS:" << TpS;
-    Print << U"Number of Problems:" << getData().NumberProblem;
-    Print << U"ACCount:" << getData().ACCount;
 
     if (WordsResultViewPort.mouseOver()){
         WordsResultScroll -= Mouse::Wheel() * 10;

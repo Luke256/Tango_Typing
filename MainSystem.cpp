@@ -61,17 +61,10 @@ void MainSystem::update() {
     // camera.update();
     // {
     //     const auto t = camera.createTransformer();
-    ClearPrint();
-    Print<<FolderScroll;
     ItemsTransition.update(ItemsActive);
     DetailTransition.update(DetailActive);
     FolderTransitionSwitchButton.update(!getData().ProblemFileSet.empty());
     LobbyTransition.update(LobbyActive);
-    Print << Cursor::Pos();
-    Print << Layers.top();
-    Print << getData().ProblemFileSet;
-    Print << FolderTransitionSwitchButton.value();
-    Print << FolderButtonAdd.y;
 
     FolderButtonAdd.setPos(Vec2(GameInfo::Width - 60, GameInfo::Height - 60 + EaseInOutBack(FolderTransitionSwitchButton.value()) * 120));
     FolderButtonStartTest.setPos(Vec2(GameInfo::Width - 60, GameInfo::Height + 60 - EaseInOutBack(FolderTransitionSwitchButton.value()) * 120));
@@ -113,6 +106,7 @@ void MainSystem::update() {
             }
 
             if(trash_rect.leftReleased() && Cursor::Pos().y>80){
+                SelectingFolder = itr.key();
                 if(System::ShowMessageBox(U"フォルダー「"+SelectingFolder+U"」を本当に削除しますか？　(この操作は取り消せません)", MessageBoxButtons::YesNo) == MessageBoxSelection::Yes)RemoveFolder();
             }
             
@@ -204,7 +198,6 @@ void MainSystem::update() {
         }
         if(SelectingWord!=U"---"){
             DetailScroll=Max((int32)getData().Table[SelectingFolder].value[SelectingWord].ScrollMax,Min(0, int32(DetailScroll-Mouse::Wheel()*10)));
-            Print<<DetailScroll;
             bool no=false;
             while(!no){
                 no=FontAsset(U"DetailDetail")(getData().Table[SelectingFolder].value[SelectingWord].EnglishEx).draw(Rect(50,320,GameInfo::Width-100, getData().Table[SelectingFolder].value[SelectingWord].EnExHeight), Palette::Black);

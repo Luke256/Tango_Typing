@@ -12,9 +12,6 @@ SelectResult::SelectResult(const InitData& init) : IScene(init){
 
 /*update---------------------------------------------------------------------*/
 void SelectResult::update() {
-    
-    ClearPrint();
-    Print << Cursor::Pos();
 
     if (WordsResultViewPort.mouseOver()){
         WordsResultScroll -= Mouse::Wheel() * 10;

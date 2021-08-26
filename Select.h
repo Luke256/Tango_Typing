@@ -17,6 +17,7 @@ private:
     Stopwatch ResultStopWatch;
 
     Texture AC, WA;
+    bool CalledUpdate;
 
 public:
     Select(const InitData& init);

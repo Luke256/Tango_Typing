@@ -5,7 +5,6 @@ Typing::Typing(const InitData& init) : IScene(init){
     Array<Problem>ProblemBuffer;
     for(auto FolderName : getData().ProblemFileSet){
         const Folder& folder = getData().Table[FolderName];
-        Print << getData().Table[FolderName].value.size();
         for(auto v : folder.value){
             Problem t(v.second.Japanese, v.second.English);
             ProblemBuffer << t;
@@ -28,18 +27,6 @@ Typing::Typing(const InitData& init) : IScene(init){
 
 /*update---------------------------------------------------------------------*/
 void Typing::update() {
-    ClearPrint();
-    Print << U"Typing";
-    Print << Cursor::Pos();
-    Print << U"MainCLock:" << MainClock.s();
-    Print << U"ProblemCLock:" << ProblemClock.s();
-    Print << U"Input:" << Input;
-    Print << U"NotKeyStreak:" << NotKeyStreak.s();
-    Print << U"ACCount:" << getData().ACCount;
-    for(auto problem : ProblemSet){
-        Print << problem.m_question << U" " << problem.m_answer;
-    }
-
     Input = U"";
     TextInput::UpdateText(Input);
     getData().AllTypeCount += Input.length();
@@ -97,7 +84,6 @@ void Typing::draw() const {
         if (ShowHint && CurrentTypedLength < ProblemSet[CurrentProblemIndex].m_answer.length()){
             Vec2 LeftTop = FontAsset(U"TypingProblem")(ProblemSet[CurrentProblemIndex].m_answer).regionAt(GameInfo::Width / 2, 300).pos;
             int32 i = 0;
-            Print << LeftTop;
             for(auto c : FontAsset(U"TypingProblem")(ProblemSet[CurrentProblemIndex].m_answer)){
                 if(i < CurrentTypedLength) FontAsset(U"TypingProblem")(ProblemSet[CurrentProblemIndex].m_answer[i]).draw(LeftTop, Palette::Gray);
                 else{

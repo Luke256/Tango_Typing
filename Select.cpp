@@ -7,7 +7,6 @@ Select::Select(const InitData& init) : IScene(init){
     Array<Problem>ProblemBuffer;
     for(auto FolderName : getData().ProblemFileSet){
         const Folder& folder = getData().Table[FolderName];
-        Print << getData().Table[FolderName].value.size();
         for(auto v : folder.value){
             Problem t;
 
@@ -41,28 +40,18 @@ Select::Select(const InitData& init) : IScene(init){
     WA=Texture(U"data/assets/SelectingWA.png", TextureDesc::Mipped);
 
     MoveNextButton = Rect(600, 520, 200, 60);
+    CalledUpdate = false;
 }
 
 /*update---------------------------------------------------------------------*/
 void Select::update() {
+    if(!CalledUpdate) CalledUpdate = true;
     if(CurrentProblemID == -1){
         // 問題の作成
         ++CurrentProblemID;
         CreateNewProblem();
         return;
     }
-
-    ClearPrint();
-    for(auto i : getData().ProblemSet){
-        Print << i.m_question << U" : " << i.m_answer;
-    }
-    Print << U"Selection : ";
-    for(auto i : step(4)){
-        Print << CurrentSelection[i];
-    }
-    Print<<ResultStopWatch.sF();
-    Print<<getData().ProblemSet[CurrentProblemID].m_answer;
-
 
     for(int32 index = 0;auto Button : SelectionButtons){
         if(Button.mouseOver()) Cursor::RequestStyle(CursorStyle::Hand);
@@ -99,6 +88,7 @@ void Select::update() {
 
 /*draw---------------------------------------------------------------------*/
 void Select::draw() const {
+    if(CalledUpdate){
     FontAsset(U"TypingProblem")(getData().ProblemSet[CurrentProblemID].m_question).drawAt(GameInfo::Width / 2, 80, Palette::Black);
     FontAsset(U"ItemName")(getData().ProblemSet[CurrentProblemID].m_problemex).drawAt(GameInfo::Width / 2, 130, Palette::Darkgray);
 
@@ -121,6 +111,7 @@ void Select::draw() const {
         }
         SelectionButtons[CorrectSelectionIndex].draw(RGB(70, 232, 242, .2));
         FontAsset(U"ItemName")(getData().ProblemSet[CurrentProblemID].m_answerex).drawAt(GameInfo::Width / 2, 180, Palette::Darkgray);
+    }
     }
 }
 
